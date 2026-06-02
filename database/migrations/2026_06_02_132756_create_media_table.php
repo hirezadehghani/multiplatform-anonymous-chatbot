@@ -11,18 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('referrals', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
 
             $table->id();
 
-            $table->foreignId('referrer_id')
-                ->constrained('users');
+            $table->foreignId('message_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-            $table->foreignId('referred_user_id')
-                ->constrained('users');
+            $table->string('disk');
 
-            $table->bigInteger('reward')
-                ->default(0);
+            $table->string('path');
+
+            $table->string('mime_type');
+
+            $table->unsignedBigInteger('size');
 
             $table->timestamps();
         });
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('referrals');
+        Schema::dropIfExists('media');
     }
 };

@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('link_codes', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->string('code')
+                ->unique();
+
+            $table->timestamp('expires_at');
+
             $table->timestamps();
         });
     }

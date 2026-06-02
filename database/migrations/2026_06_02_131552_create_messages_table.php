@@ -12,8 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->id();
+
+            $table->bigIncrements('id');
+
+            $table->foreignId('room_id')
+                ->constrained('chat_rooms')
+                ->cascadeOnDelete();
+
+            $table->foreignId('sender_user_id')
+                ->constrained('users');
+
+            $table->text('body')
+                ->nullable();
+
+            $table->string('type')
+                ->default('text');
+
+            $table->json('meta')
+                ->nullable();
+
             $table->timestamps();
+
+            $table->index('room_id');
+            $table->index('sender_user_id');
         });
     }
 
