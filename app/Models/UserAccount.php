@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Enums\PlatformEnum;
 
 class UserAccount extends Model
 {
@@ -25,4 +26,8 @@ class UserAccount extends Model
     {
         return $this->belongsTo(Bot::class);
     }
+
+    protected $casts = [
+        'platform' => PlatformEnum::class,
+    ];
 }

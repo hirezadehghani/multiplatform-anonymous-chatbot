@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Enums\UserStatusEnum;
+
 // #[Fillable(['name', 'email', 'password', 'display_name', 'gender', 'age', 'city', ])]
 // #[Hidden([''])]
 class User extends Authenticatable
@@ -84,4 +86,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(LinkCode::class);
     }
+
+    protected $casts = [
+        'status' => UserStatusEnum::class,
+    ];
 }

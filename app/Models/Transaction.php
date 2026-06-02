@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Enums\TransactionTypeEnum;
 
 class Transaction extends Model
 {
@@ -12,6 +13,10 @@ class Transaction extends Model
         'amount',
         'type',
         'description',
+    ];
+
+    protected $casts = [
+        'type' => TransactionTypeEnum::class,
     ];
 
     public function user(): BelongsTo
