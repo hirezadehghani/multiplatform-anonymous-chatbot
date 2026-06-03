@@ -2,8 +2,13 @@
 
 namespace App\Enums;
 
+use HasOptions;
+
 enum PlatformEnum: string
 {
+
+    use HasOptions;
+
     case BALE = 'bale';
 
     case TELEGRAM = 'telegram';
