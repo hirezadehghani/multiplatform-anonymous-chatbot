@@ -1,3 +1,4 @@
+<?php 
 class ChatService
 {
     public function startChat()
@@ -12,3 +13,5 @@ class ChatService
     {
     }
 }
+
+?>

@@ -1,3 +1,5 @@
+<?php 
+
 class WalletService
 {
     public function deposit()
@@ -12,3 +14,4 @@ class WalletService
     {
     }
 }
+?>
