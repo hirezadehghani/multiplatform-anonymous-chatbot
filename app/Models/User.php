@@ -3,16 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserStatusEnum;
 use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-use App\Enums\UserStatusEnum;
 
 // #[Fillable(['name', 'email', 'password', 'display_name', 'gender', 'age', 'city', ])]
 // #[Hidden([''])]
@@ -22,10 +20,15 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * @var array<string, mixed>
      */
+    protected $attributes = [
+        'status' => 'offline',
+    ];
+
+    protected $casts = [
+        'status' => UserStatusEnum::class,
+    ];
 
     public function accounts(): HasMany
     {
@@ -87,7 +90,18 @@ class User extends Authenticatable
         return $this->hasMany(LinkCode::class);
     }
 
-    protected $casts = [
-        'status' => UserStatusEnum::class,
-    ];
+    public function scopeSearching(Builder $query): Builder
+    {
+        return $query->where('status', UserStatusEnum::SEARCHING);
+    }
+
+    public function scopeChatting(Builder $query): Builder
+    {
+        return $query->where('status', UserStatusEnum::CHATTING);
+    }
+
+    public function scopeOffline(Builder $query): Builder
+    {
+        return $query->where('status', UserStatusEnum::OFFLINE);
+    }
 }
