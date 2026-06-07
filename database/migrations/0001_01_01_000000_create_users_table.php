@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->string('email')->nullable()->unique();
+            $table->string('password')->nullable();
             $table->string('display_name')->nullable();
+            $table->rememberToken();
             $table->enum('gender', [
                 'male',
                 'female',
-                'unknown'
+                'unknown',
             ])->default('unknown');
             $table->unsignedTinyInteger('age')->nullable();
             $table->string('city')->nullable();
@@ -26,6 +29,7 @@ return new class extends Migration
                 ->default(false);
             $table->timestamp('last_seen_at')
                 ->nullable();
+            $table->timestamps();
         });
     }
 
