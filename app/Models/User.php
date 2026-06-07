@@ -5,6 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserStatusEnum;
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,12 +15,33 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-// #[Fillable(['name', 'email', 'password', 'display_name', 'gender', 'age', 'city', ])]
-// #[Hidden([''])]
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser, HasName
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * @var list<string>
+     */
+    protected $fillable = [
+        'uuid',
+        'email',
+        'password',
+        'display_name',
+        'gender',
+        'age',
+        'city',
+        'profile_completed',
+        'last_seen_at',
+        'status',
+    ];
+
+    /**
+     * @var list<string>
+     */
+    protected $hidden = [
+        'password',
+    ];
 
     /**
      * @var array<string, mixed>
@@ -26,9 +50,25 @@ class User extends Authenticatable
         'status' => 'offline',
     ];
 
-    protected $casts = [
-        'status' => UserStatusEnum::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'status' => UserStatusEnum::class,
+            'password' => 'hashed',
+            'profile_completed' => 'boolean',
+            'last_seen_at' => 'datetime',
+        ];
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->email !== null;
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->display_name ?? $this->email ?? 'User';
+    }
 
     public function accounts(): HasMany
     {

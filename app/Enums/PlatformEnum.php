@@ -2,11 +2,10 @@
 
 namespace App\Enums;
 
-use HasOptions;
+use App\Enums\Traits\HasOptions;
 
 enum PlatformEnum: string
 {
-
     use HasOptions;
 
     case BALE = 'bale';
