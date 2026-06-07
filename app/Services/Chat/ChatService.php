@@ -13,57 +13,53 @@ use InvalidArgumentException;
 
 class ChatService
 {
-    public function startChat(User $user1, User $user2): ChatRoom
+    public function startChat(User $userA, User $userB): ChatRoom
     {
-        if ($user1->is($user2)) {
+        if ($userA->is($userB)) {
             throw new InvalidArgumentException('A user cannot start a chat with themselves.');
         }
 
-        if ($this->activeRoomForUser($user1) !== null) {
+        if ($this->activeRoomForUser($userA) !== null) {
             throw new InvalidArgumentException('User is already in an active chat.');
         }
 
-        if ($this->activeRoomForUser($user2) !== null) {
+        if ($this->activeRoomForUser($userB) !== null) {
             throw new InvalidArgumentException('Partner is already in an active chat.');
         }
 
-        return DB::transaction(function () use ($user1, $user2): ChatRoom {
+        return DB::transaction(function () use ($userA, $userB): ChatRoom {
             $room = ChatRoom::query()->create([
-                'user1_id' => $user1->id,
-                'user2_id' => $user2->id,
+                'user1_id' => $userA->id,
+                'user2_id' => $userB->id,
                 'status' => ChatRoomStatusEnum::ACTIVE,
                 'started_at' => now(),
             ]);
 
             User::query()
-                ->whereIn('id', [$user1->id, $user2->id])
+                ->whereIn('id', [$userA->id, $userB->id])
                 ->update(['status' => UserStatusEnum::CHATTING]);
 
             return $room->fresh();
         });
     }
 
-    public function sendMessage(
-        ChatRoom $room,
-        User $sender,
-        string $body,
-        MessageTypeEnum $type = MessageTypeEnum::TEXT,
-        ?array $meta = null,
-    ): Message {
+    public function sendMessage(ChatRoom $room, User $sender, string $text): Message
+    {
         $this->ensureRoomIsActive($room);
         $this->ensureUserIsParticipant($room, $sender);
 
-        if ($type === MessageTypeEnum::TEXT && trim($body) === '') {
-            throw new InvalidArgumentException('Text messages must have a body.');
+        if (trim($text) === '') {
+            throw new InvalidArgumentException('Text messages must not be empty.');
         }
 
-        return Message::query()->create([
-            'room_id' => $room->id,
-            'sender_user_id' => $sender->id,
-            'body' => $body,
-            'type' => $type,
-            'meta' => $meta,
-        ]);
+        return DB::transaction(function () use ($room, $sender, $text): Message {
+            return Message::query()->create([
+                'room_id' => $room->id,
+                'sender_user_id' => $sender->id,
+                'body' => $text,
+                'type' => MessageTypeEnum::TEXT,
+            ]);
+        });
     }
 
     public function endChat(ChatRoom $room): ChatRoom
