@@ -29,5 +29,6 @@ class UserAccount extends Model
 
     protected $casts = [
         'platform' => PlatformEnum::class,
+        'is_primary' => 'boolean',
     ];
 }

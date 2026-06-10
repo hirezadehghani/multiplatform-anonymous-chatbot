@@ -50,15 +50,11 @@ class User extends Authenticatable implements FilamentUser, HasName
         'status' => 'offline',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'status' => UserStatusEnum::class,
-            'password' => 'hashed',
-            'profile_completed' => 'boolean',
-            'last_seen_at' => 'datetime',
-        ];
-    }
+    protected $casts = [
+        'password' => 'hashed',
+        'profile_completed' => 'boolean',
+        'last_seen_at' => 'datetime',
+    ];
 
     public function canAccessPanel(Panel $panel): bool
     {
