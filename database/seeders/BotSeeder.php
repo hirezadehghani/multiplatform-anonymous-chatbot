@@ -15,7 +15,7 @@ class BotSeeder extends Seeder
     {
         Bot::updateOrCreate(
             [
-                'platform' => PlatformEnum::WEB->value,
+                'platform' => PlatformEnum::BALE->value,
                 'name' => 'Web Admin',
             ],
             [
