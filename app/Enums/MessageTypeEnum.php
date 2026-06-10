@@ -2,13 +2,8 @@
 
 namespace App\Enums;
 
-use HasOptions;
-
 enum MessageTypeEnum: string
 {
-
-    use HasOptions;
-
     case TEXT = 'text';
 
     case IMAGE = 'image';
