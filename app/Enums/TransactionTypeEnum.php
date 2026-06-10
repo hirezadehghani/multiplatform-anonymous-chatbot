@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-use HasOptions;
+use App\Enums\HasOptions;
 
 enum TransactionTypeEnum: string
 {
