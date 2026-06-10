@@ -63,4 +63,13 @@ final class MessageRelayService
 
         return $message;
     }
+
+    public function sendPlatformMessage(PlatformEnum $platform, string $platformUserId, string $message): void
+    {
+        $platformKey = $platform->value;
+
+        if (isset($this->connectors[$platformKey])) {
+            $this->connectors[$platformKey]->sendMessage($platformUserId, $message);
+        }
+    }
 }
