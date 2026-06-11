@@ -24,7 +24,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'uuid' => Str::uuid(),
+            'uuid' => (string) Str::uuid(),
+            'email' => fake()->unique()->safeEmail(),
+            'password' => static::$password ??= bcrypt('password'),
             'display_name' => fake()->name(),
             'gender' => fake()->randomElement(['male', 'female', 'unknown']),
             'age' => fake()->numberBetween(18, 100),

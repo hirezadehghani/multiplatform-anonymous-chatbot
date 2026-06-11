@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserSeeder extends Seeder
 {
@@ -18,9 +19,9 @@ class AdminUserSeeder extends Seeder
         $admin = User::firstOrCreate(
             ['email' => 'admin@test.com'],
             [
-                'uuid' => Str::uuid(),
+                'uuid' => (string) Str::uuid(),
                 'display_name' => 'Admin',
-                'password' => 'password',
+                'password' => Hash::make('password'),
                 'status' => UserStatusEnum::OFFLINE,
             ]
         );
