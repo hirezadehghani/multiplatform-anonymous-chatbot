@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\UserAccounts\Schemas;
 
+use App\Enums\PlatformEnum;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
@@ -13,7 +15,8 @@ class UserAccountForm
         return $schema
             ->components([
                 TextInput::make('user_id'),
-                TextInput::make('platform'),
+                Select::make('platform')
+                    ->options(PlatformEnum::options()),
                 TextInput::make('platform_user_id'),
                 TextInput::make('username'),
                 Toggle::make('is_primary'),

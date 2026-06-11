@@ -15,4 +15,14 @@ enum PlatformEnum: string
     case RUBIKA = 'rubika';
 
     case WEB = 'web';
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::BALE => 'Bale',
+            self::TELEGRAM => 'Telegram',
+            self::RUBIKA => 'Rubika',
+            self::WEB => 'Web',
+        };
+    }
 }

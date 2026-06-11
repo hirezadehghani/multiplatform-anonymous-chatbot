@@ -9,7 +9,6 @@ use App\Filament\Resources\Messages\Widgets\MessageStats;
 use App\Models\Message;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
-use Filament\Schemas\Schema;
 
 class MessageResource extends Resource
 {
