@@ -4,11 +4,11 @@ namespace App\Filament\Resources\Messages\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\ViewAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Filters\DateFilter;
 use Filament\Tables\Table;
+use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
 class MessagesTable
 {
@@ -25,7 +25,7 @@ class MessagesTable
             ])
             ->filters([
                 SelectFilter::make('type'),
-                DateFilter::make('created_at'),
+                DateRangeFilter::make('created_at'),
             ])
             ->recordActions([
                 ViewAction::make(),
