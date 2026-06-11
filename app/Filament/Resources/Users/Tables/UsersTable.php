@@ -29,7 +29,7 @@ class UsersTable
                         'chatting' => 'Chatting',
                         'offline' => 'Offline',
                     ]),
-                TrashedFilter::make(),
+                // TrashedFilter::make(),
             ])
             ->recordActions([
                 EditAction::make(),

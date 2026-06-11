@@ -5,6 +5,8 @@ namespace App\Filament\Resources\UserAccounts\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\Checkbox;
+use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -19,7 +21,7 @@ class UserAccountsTable
                 TextColumn::make('platform')->searchable(),
                 TextColumn::make('platform_user_id')->searchable(),
                 TextColumn::make('username')->searchable(),
-                TextColumn::make('is_primary')->boolean()->toggleable(isToggledHiddenByDefault: true),
+                // CheckboxColumn::make('is_primary')->boolean()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('platform'),

@@ -16,7 +16,7 @@ class WalletsTable
         return $table
             ->columns([
                 TextColumn::make('user.display_name')->label('User')->searchable(),
-                TextColumn::make('balance')->money('usd')->sortable(),
+                TextColumn::make('balance')->money('IRR', locale: 'fa_IR')->sortable(),
                 TextColumn::make('created_at')->dateTime()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
