@@ -8,6 +8,7 @@ use App\Connectors\TelegramConnector;
 use App\Connectors\RubikaConnector;
 use App\Contracts\PlatformConnector;
 use App\Services\Chat\MessageRelayService;
+use BezhanSalleh\LanguageSwitch\LanguageSwitch;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -55,6 +56,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
+        $switch->locales(['fa', 'en']);
+    });
     }
 }
