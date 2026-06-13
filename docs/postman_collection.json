@@ -1,0 +1,137 @@
+{
+  "info": {
+    "name": "Bot Commands Webhook - Postman Collection",
+    "description": "Command execution order:\n1. accidental_chat\n2. chat_with_girl\n3. chat_with_boy\n4. chat_with_goal\n5. advanced_search\n6. wallet\n7. invite\n8. profile\n9. previous_chats",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "bot_id",
+      "value": "BOT_ID_HERE",
+      "type": "string"
+    },
+    {
+      "key": "platform_user_id",
+      "value": "PLATFORM_USER_ID",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "00 - start",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1000,\n  \"message\": {\n    \"message_id\": 0,\n    \"from\": { \"id\": \"{{platform_user_id}}\", \"username\": \"tester\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000000,\n    \"text\": \"/start\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "01 - accidental_chat",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1001,\n  \"message\": {\n    \"message_id\": 1,\n    \"from\": {\n      \"id\": \"{{platform_user_id}}\",\n      \"username\": \"tester\",\n      \"first_name\": \"Test\",\n      \"last_name\": \"User\"\n    },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000000,\n    \"text\": \"/accidental_chat\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "02 - chat_with_girl",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1002,\n  \"message\": {\n    \"message_id\": 2,\n    \"from\": { \"id\": \"{{platform_user_id}}\", \"username\": \"tester\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000001,\n    \"text\": \"/chat_with_girl\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "03 - chat_with_boy",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1003,\n  \"message\": {\n    \"message_id\": 3,\n    \"from\": { \"id\": \"{{platform_user_id}}\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000002,\n    \"text\": \"/chat_with_boy\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "04 - chat_with_goal",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1004,\n  \"message\": {\n    \"message_id\": 4,\n    \"from\": { \"id\": \"{{platform_user_id}}\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000003,\n    \"text\": \"/chat_with_goal\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "05 - advanced_search",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1005,\n  \"message\": {\n    \"message_id\": 5,\n    \"from\": { \"id\": \"{{platform_user_id}}\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000004,\n    \"text\": \"/advanced_search\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "06 - wallet",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1006,\n  \"message\": {\n    \"message_id\": 6,\n    \"from\": { \"id\": \"{{platform_user_id}}\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000005,\n    \"text\": \"/wallet\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "07 - invite",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1007,\n  \"message\": {\n    \"message_id\": 7,\n    \"from\": { \"id\": \"{{platform_user_id}}\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000006,\n    \"text\": \"/invite\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "08 - profile",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1008,\n  \"message\": {\n    \"message_id\": 8,\n    \"from\": { \"id\": \"{{platform_user_id}}\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000007,\n    \"text\": \"/profile\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    },
+    {
+      "name": "09 - previous_chats",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"update_id\": 1009,\n  \"message\": {\n    \"message_id\": 9,\n    \"from\": { \"id\": \"{{platform_user_id}}\" },\n    \"chat\": { \"id\": 1, \"type\": \"private\" },\n    \"date\": 1620000008,\n    \"text\": \"/previous_chats\"\n  }\n}" },
+        "url": { "raw": "{{base_url}}/api/webhooks/bale/{{bot_id}}", "host": ["{{base_url}}"], "path": ["api","webhooks","bale","{{bot_id}}"] }
+      },
+      "event": [ { "listen": "test", "script": { "type": "text/javascript", "exec": [ "pm.test('Status code is 200', function () {", "    pm.response.to.have.status(200);", "});", "var json = pm.response.json();", "pm.test('Body ok is true', function () {", "    pm.expect(json.ok).to.eql(true);", "});" ] } } ],
+      "response": [ { "name": "Example Response", "status": "OK", "code": 200, "_postman_previewlanguage": "json", "body": "{ \"ok\": true }" } ]
+    }
+  ]
+}

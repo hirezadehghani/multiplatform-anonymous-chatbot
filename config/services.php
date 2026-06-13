@@ -13,6 +13,9 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'bale' => [
+        'token' => env('BALE_TOKEN'),
+    ],
 
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),

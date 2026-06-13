@@ -22,6 +22,11 @@ class BaleMessageHandler
 
     public function handle(Bot $bot, BaleUpdate $update): void
     {
+        logger()->info('Incoming update', [
+            'text' => $update->message,
+            'user_id' => $update->platformUserId(),
+        ]);
+
         if (! $update->hasUserInteraction()) {
             return;
         }
@@ -31,8 +36,13 @@ class BaleMessageHandler
         $text = trim((string) ($update->text() ?? ''));
 
         $route = $this->router->route($text);
+        logger()->info('Route result', [
+            'route' => $route?->command?->value,
+        ]);
 
+        // If incoming text is not a bot command, treat it as a chat message
         if ($route === null) {
+            $this->messageRelayService->handleIncomingMessage(PlatformEnum::BALE, $update->platformUserId(), $text);
             return;
         }
 
@@ -49,13 +59,16 @@ class BaleMessageHandler
 
             $result = $this->previousChatsService->listForUser($account->user, 5, $page);
 
+            logger()->info('Previous chats result', $result);
+
             if (empty($result['data'])) {
                 $this->messageRelayService->sendPlatformMessage(PlatformEnum::BALE, $update->platformUserId(), 'چتی یافت نشد.');
                 return;
             }
 
             $lines = array_map(function ($row) {
-                return sprintf("%s — پیام‌ها: %d — شروع: %s — پایان: %s",
+                return sprintf(
+                    "%s — پیام‌ها: %d — شروع: %s — پایان: %s",
                     $row['partner_display_name'] ?? '—',
                     $row['messages_count'] ?? 0,
                     $row['started_at'] ?? '-',
