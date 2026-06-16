@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+      - redis
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  db:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  queue:
+    build: .
+    container_name: queue_worker
+    command: php artisan queue:work
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+      - redis
+
+  scheduler:
+    build: .
+    container_name: scheduler
+    command: php artisan schedule:work
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  pgdata:
