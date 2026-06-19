@@ -1,0 +1,40 @@
+ Image multiplatform-anonymous-chatbot-queue Building 
+ Image multiplatform-anonymous-chatbot-scheduler Building 
+ Image multiplatform-anonymous-chatbot-app Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.69kB done
+#1 DONE 0.0s
+
+#2 [queue internal] load build definition from Dockerfile
+#2 transferring dockerfile: 455B done
+#2 DONE 0.0s
+
+#3 [queue internal] load metadata for docker.io/library/php:8.4-fpm
+#3 DONE 0.1s
+
+#4 [queue internal] load metadata for docker.io/library/composer:latest
+#4 DONE 0.1s
+
+#5 [queue internal] load .dockerignore
+#5 transferring context: 111B done
+#5 DONE 0.0s
+
+#6 [queue stage-0 1/7] FROM docker.io/library/php:8.4-fpm@sha256:d1a0ec2160261211a060fcf652551f63b515095c66df62fa2f245aa113cbe51c
+#6 resolve docker.io/library/php:8.4-fpm@sha256:d1a0ec2160261211a060fcf652551f63b515095c66df62fa2f245aa113cbe51c 0.0s done
+#6 CACHED
+
+#7 [app] FROM docker.io/library/composer:latest@sha256:e8fdff913656c23e90ebbe0d7c55ab078c2aefdbb53ff79a73af5cc0921d5b81
+#7 resolve docker.io/library/composer:latest@sha256:e8fdff913656c23e90ebbe0d7c55ab078c2aefdbb53ff79a73af5cc0921d5b81 0.0s done
+#7 CACHED
+
+#8 [queue internal] load build context
+#8 transferring context: 2.27MB 0.9s done
+#8 DONE 1.0s
+
+#9 [queue stage-0 2/7] RUN apt-get update && apt-get install -y     git curl zip unzip libpq-dev libzip-dev     && docker-php-ext-install pdo pdo_pgsql zip
+#9 0.700 Hit:1 http://deb.debian.org/debian trixie InRelease
+#9 0.788 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+#9 0.981 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+#9 1.121 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9671 kB]
+#9 36.57 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [5412 B]
+

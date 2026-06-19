@@ -1,19 +1,34 @@
+# -------- PHP BASE --------
 FROM php:8.4-fpm
 
-# system deps
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpq-dev libzip-dev \
-    && docker-php-ext-install pdo pdo_pgsql zip
-
-# composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+    git curl zip unzip \src/
+    libpq-dev libzip-dev libicu-dev \
+    && docker-php-ext-install \
+    pdo pdo_pgsql zip intl \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www
 
+# -------- COPY PROJECT --------
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+# -------- COMPOSER INSTALL --------
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+ENV COMPOSER_DISABLE_NETWORK=0
+ENV COMPOSER_PROCESS_TIMEOUT=2000
+
+RUN composer config -g repos.packagist composer https://repo.packagist.org
+
+RUN --mount=type=cache,target=/root/.composer/cache \
+    composer install \
+    --no-dev \
+    --prefer-dist \
+    --no-interaction \
+    --optimize-autoloader
+
+# permissions
 RUN chown -R www-data:www-data /var/www
 
 EXPOSE 9000
