@@ -2,7 +2,7 @@
 FROM php:8.4-fpm
 
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip \src/
+    git curl zip unzip \
     libpq-dev libzip-dev libicu-dev \
     && docker-php-ext-install \
     pdo pdo_pgsql zip intl \
@@ -21,16 +21,9 @@ ENV COMPOSER_PROCESS_TIMEOUT=2000
 
 RUN composer config -g repos.packagist composer https://repo.packagist.org
 
-RUN --mount=type=cache,target=/root/.composer/cache \
-    composer install \
-    --no-dev \
-    --prefer-dist \
-    --no-interaction \
-    --optimize-autoloader
-
 # permissions
 RUN chown -R www-data:www-data /var/www
 
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD sh -c "composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader && php-fpm"
