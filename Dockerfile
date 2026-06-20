@@ -1,6 +1,6 @@
 # -------- PHP BASE --------
 FROM php:8.4-fpm
-COPY sources.list /etc/apt/sources.list
+COPY docker/sources.list /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
     git curl zip unzip \
