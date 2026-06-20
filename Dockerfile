@@ -1,6 +1,4 @@
-FROM docker.io/bitnami/minideb:bullseye
-
-ADD sources.list /etc/apt/ 
+COPY sources.list /etc/apt/sources.list
 # -------- PHP BASE --------
 FROM php:8.4-fpm
 
