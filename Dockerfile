@@ -23,7 +23,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_DISABLE_NETWORK=0
 ENV COMPOSER_PROCESS_TIMEOUT=2000
 
-RUN composer config -g repos.packagist composer https://repo.packagist.org
+RUN composer config -g repos.packagist composer https://mirror.abrha.net/repository/composer/
 
 # permissions
 RUN chown -R www-data:www-data /var/www
