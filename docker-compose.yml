@@ -2,9 +2,8 @@ services:
   app:
     build:
       context: .
-      args:
-          HTTP_PROXY: http://127.0.0.1:10808
-          HTTPS_PROXY: http://127.0.0.1:10808
+      environment:
+        COMPOSER_REPO_PACKAGIST: https://mirrors.aliyun.com/composer/
     container_name: laravel_app
     volumes:
       - .:/var/www
