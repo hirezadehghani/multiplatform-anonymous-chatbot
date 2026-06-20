@@ -1,5 +1,8 @@
 # -------- PHP BASE --------
 FROM php:8.4-fpm
+
+# ------- mirrors -------
+RUN rm -f /etc/apt/sources.list.d/debian.sources
 COPY docker/sources.list /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
