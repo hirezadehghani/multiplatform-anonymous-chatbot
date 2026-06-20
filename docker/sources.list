@@ -3,4 +3,3 @@ deb https://repo.abrha.net/debian trixie main contrib non-free non-free-firmware
 deb https://repo.abrha.net/debian trixie-updates main contrib non-free non-free-firmware
 deb https://repo.abrha.net/debian trixie-backports main contrib non-free non-free-firmware
 deb https://repo.abrha.net/debian-security trixie-security main non-free-firmware
-EOF
