@@ -1,0 +1,5 @@
+# Ubuntu 24.04 LTS Noble
+deb https://repo.abrha.net/ubuntu noble main restricted universe multiverse
+deb https://repo.abrha.net/ubuntu noble-updates main restricted universe multiverse
+deb https://repo.abrha.net/ubuntu noble-backports main restricted universe multiverse
+deb https://repo.abrha.net/ubuntu noble-security main restricted universe multiverse
