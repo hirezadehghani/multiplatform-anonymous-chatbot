@@ -28,4 +28,4 @@ RUN chown -R www-data:www-data /var/www
 
 EXPOSE 9000
 
-CMD sh -c "composer config -g repos.packagist composer https://package-mirror.liara.ir/repository/composer/ && composer install --no-dev --prefer-dist  --no-interaction--optimize-autoloader && php-fpm"
+CMD sh -c "composer config -g repos.packagist composer https://package-mirror.liara.ir/repository/composer/ && composer install --no-dev --prefer-dist && php-fpm"
