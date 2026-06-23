@@ -92,13 +92,12 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-       "repositories": [
-        {
-            "packagist.org": false
-        },
+    "repositories": {
+        "packagist.org": false,
+        "liara-mirror":
         {
             "type": "composer",
             "url": "https://package-mirror.liara.ir/repository/composer/"
         }
-    ]
+    }
 }
