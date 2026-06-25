@@ -27,5 +27,6 @@ ENV COMPOSER_PROCESS_TIMEOUT=2000
 RUN chown -R www-data:www-data /var/www
 
 EXPOSE 9000
+# composer config -g repos.packagist composer https://package-mirror.liara.ir/repository/composer/ && composer install --no-dev --prefer-dist &&
 
-CMD sh -c "composer config -g repos.packagist composer https://package-mirror.liara.ir/repository/composer/ && composer install --no-dev --prefer-dist && php-fpm"
+CMD sh -c "php-fpm"
