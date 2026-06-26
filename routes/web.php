@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Connectors\BaleConnector;
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'Application working! Written By Reza Dehghani contact with me at -> https://hireza.ir'
 });
 
 
