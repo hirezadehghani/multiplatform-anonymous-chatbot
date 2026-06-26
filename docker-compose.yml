@@ -3,19 +3,19 @@ services:
     build:
       context: .
     container_name: laravel_app
-    volumes:
-      - .:/var/www
     depends_on:
       - db
       - redis
 
   nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
     image: nginx:alpine
     container_name: nginx
     ports:
       - "80:80"
     volumes:
-      - .:/var/www
       - ./docker/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro # <-- CHANGED THIS LINE
     depends_on:
       - app
@@ -32,21 +32,19 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data # KEEP THIS! Essential for database persistence
 
   redis:
     image: redis:alpine
     container_name: redis
     ports:
-      - "6379:6379"
+      - "6379:6379" #EEP THIS - Redis is fine without a volume if used only for temporary cache
 
   queue:
     build: .
     container_name: queue_worker
     command: php artisan queue:work
     restart: unless-stopped
-    volumes:
-      - .:/var/www
     depends_on:
       - db
       - redis
@@ -55,8 +53,6 @@ services:
     build: .
     container_name: scheduler
     command: php artisan schedule:work
-    volumes:
-      - .:/var/www
     depends_on:
       - db
       - redis
