@@ -5,7 +5,6 @@ services:
     container_name: laravel_app
     volumes:
       - .:/var/www
-      - app_vendor:/var/www/vendor
     depends_on:
       - db
       - redis
@@ -48,7 +47,6 @@ services:
     restart: unless-stopped
     volumes:
       - .:/var/www
-      - app_vendor:/var/www/vendor
     depends_on:
       - db
       - redis
@@ -59,11 +57,9 @@ services:
     command: php artisan schedule:work
     volumes:
       - .:/var/www
-      - app_vendor:/var/www/vendor
     depends_on:
       - db
       - redis
 
 volumes:
   pgdata:
-  app_vendor:
