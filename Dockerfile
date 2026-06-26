@@ -6,10 +6,10 @@ RUN rm -f /etc/apt/sources.list.d/debian.sources
 COPY docker/sources.list /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip \
+    git curl zip unzip php-redis\
     libpq-dev libzip-dev libicu-dev \
     && docker-php-ext-install \
-    pdo pdo_pgsql zip intl php-redis \
+    pdo pdo_pgsql zip intl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www
