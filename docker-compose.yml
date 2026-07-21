@@ -40,11 +40,17 @@ services:
     container_name: redis
     ports:
       - "6379:6379" #EEP THIS - Redis is fine without a volume if used only for temporary cache
+    healthcheck:
+        test: [ "CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping" ]
+        interval: 5s
+        timeout: 3s
+        retries: 5
 
   queue:
     build: .
     container_name: queue_worker
     command: php artisan queue:work
+             sh -c "sleep 5 && php artisan queue:work"
     restart: unless-stopped
     depends_on:
       - db
