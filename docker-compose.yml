@@ -3,24 +3,29 @@ services:
     build:
       context: .
     container_name: laravel_app
+    env_file: .env
+    restart: unless-stopped
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_started
+      redis:
+        condition: service_healthy
 
   nginx:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
-    image: nginx:alpine
+    # REMOVE: image: nginx:alpine   <-- conflicts with official image tag
     container_name: nginx
     ports:
       - "80:80"
     volumes:
-      - ./docker/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro # <-- CHANGED THIS LINE
+      - ./docker/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
     depends_on:
       - app
     environment:
-      - SERVER_NAME=${SERVER_NAME}
+      SERVER_NAME: ${SERVER_NAME:-localhost}
+    restart: unless-stopped
 
   db:
     image: postgres:16
@@ -32,37 +37,55 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data # KEEP THIS! Essential for database persistence
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
 
   redis:
     image: redis:alpine
     command: redis-server --requirepass ${REDIS_PASSWORD}
     container_name: redis
     ports:
-      - "6379:6379" #EEP THIS - Redis is fine without a volume if used only for temporary cache
+      - "6379:6379"
     healthcheck:
-        test: [ "CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping" ]
-        interval: 5s
-        timeout: 3s
-        retries: 5
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
 
   queue:
     build:
       context: .
     container_name: queue_worker
-    command: [ "php", "artisan", "queue:work" ]
+    env_file: .env
+    command: ["php", "artisan", "queue:work", "--sleep=3", "--tries=3"]
     restart: unless-stopped
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_started
+      redis:
+        condition: service_healthy
+      app:
+        condition: service_started
 
   scheduler:
     build: .
     container_name: scheduler
+    env_file: .env
     command: ["php", "artisan", "schedule:work"]
+    restart: unless-stopped
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_started
+      redis:
+        condition: service_healthy
+      app:
+        condition: service_started
 
 volumes:
   pgdata:
