@@ -23,12 +23,14 @@
     
     # Copy application code
     COPY . .
-    
-    # Create writable dirs excluded by .dockerignore
-    RUN mkdir -p storage/framework/{cache/data,sessions,views} storage/logs bootstrap/cache \
-        && composer dump-autoload --optimize \
-        && php artisan package:discover --ansi || true \
-        && chown -R www-data:www-data storage bootstrap/cache
+
+    RUN mkdir -p storage/framework/cache/data \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache \
+ && composer dump-autoload --optimize \
+ && chown -R www-data:www-data storage bootstrap/cache
     
     COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
     RUN chmod +x /usr/local/bin/entrypoint.sh
