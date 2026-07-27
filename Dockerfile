@@ -18,6 +18,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Install dependencies first (better layer caching)
 COPY composer.json composer.lock ./
+
+RUN composer config -g process-timeout 600
 RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
 
 # Copy application code
