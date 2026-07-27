@@ -18,7 +18,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Install dependencies first (better layer caching)
 COPY composer.json composer.lock ./
-RUN composer config -g repos.packagist composer https://mirror.abrha.net/repository/composer/ \
+RUN composer config -g repos.packagist composer https://package-mirror.liara.ir/repository/composer/ \
     && composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader --no-scripts
 
 # Copy application code
