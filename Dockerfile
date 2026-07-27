@@ -20,12 +20,13 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.lock ./
 
 RUN composer config -g process-timeout 600
+
 RUN composer install \
     --no-dev \
     --prefer-dist \
     --no-interaction \
     --optimize-autoloader \
-    --no-scripts \
+    --no-scripts
 
 # Copy application code
 COPY . .
