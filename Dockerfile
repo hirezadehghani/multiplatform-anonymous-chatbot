@@ -18,7 +18,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Install dependencies first (better layer caching)
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader --no-scripts
+RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
 
 # Copy application code
 COPY . .
