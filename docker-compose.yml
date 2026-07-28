@@ -58,8 +58,7 @@ services:
     restart: unless-stopped
 
   queue:
-    build:
-      context: .
+    image: rezadehghani/anonymous-chatbot:latest
     container_name: queue_worker
     env_file: .env
     command: ["php", "artisan", "queue:work", "--sleep=3", "--tries=3"]
@@ -73,7 +72,7 @@ services:
         condition: service_started
 
   scheduler:
-    build: .
+    image: rezadehghani/anonymous-chatbot:latest
     container_name: scheduler
     env_file: .env
     command: ["php", "artisan", "schedule:work"]
