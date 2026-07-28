@@ -1,4 +1,4 @@
-name: Build and Push
+name: Build and Push Docker Image
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   docker:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +24,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ./Dockerfile
           push: true
           tags: |
             rezadehghani/anonymous-chatbot:latest
