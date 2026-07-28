@@ -1,6 +1,6 @@
 services:
   app:
-    image: hirezadehghani/anonymous-chatbot:latest
+    image: rezadehghani/anonymous-chatbot:latest
     container_name: laravel_app
     env_file: .env
     restart: unless-stopped
