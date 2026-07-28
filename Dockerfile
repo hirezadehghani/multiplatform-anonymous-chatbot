@@ -20,13 +20,15 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.lock ./
 
 RUN composer config -g process-timeout 600
+RUN composer config -g repos.packagist composer https://repo.packagist.org
 
 RUN composer install \
     --no-dev \
     --prefer-dist \
     --no-interaction \
     --optimize-autoloader \
-    --no-scripts
+    --no-scripts \
+    -vvv
 
 # Copy application code
 COPY . .
