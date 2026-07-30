@@ -1,58 +1,302 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Multiplatform Anonymous Chatbot
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <strong>A platform-independent anonymous messaging backend built with Laravel.</strong><br>
+  Connect users across multiple messaging platforms through a unified, scalable backend.
 </p>
 
-## About Laravel
+<p align="center">
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Laravel](https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel\&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?logo=php\&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql\&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-Latest-DC382D?logo=redis\&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker\&logoColor=white)
+![License](https://img.shields.io/github/license/hirezadehghani/multiplatform-anonymous-chatbot)
+![Last Commit](https://img.shields.io/github/last-commit/hirezadehghani/multiplatform-anonymous-chatbot)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Overview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Multiplatform Anonymous Chatbot** is a backend service that enables anonymous conversations between users across different messaging platforms.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Instead of creating separate bots for each platform, the application provides a unified backend that handles user registration, anonymous matching, message routing, and platform integrations.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+This project is primarily a **portfolio project** focused on software architecture, backend engineering, and scalable application design.
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Motivation
 
-```bash
-composer require laravel/boost --dev
+The project also serves as a practical experiment in **AI-assisted (Vibe Coding)** development.
 
-php artisan boost:install
+AI was used as a collaborative development tool—not as a replacement for software engineering. Every generated solution was reviewed, debugged, tested, and integrated manually. The objective was to explore how experienced developers can increase productivity while maintaining code quality and architectural ownership.
+
+---
+
+## Features
+
+* Anonymous user registration
+* Cross-platform messaging architecture
+* Platform-independent backend
+* Queue-based message processing
+* Redis caching
+* PostgreSQL database
+* Dockerized development environment
+* RESTful API
+* Scalable Laravel architecture
+* Modular service layer
+* Extensible bot providers
+
+### Planned Features
+
+* Telegram Bot
+* Bale Bot
+* Discord Integration
+* WhatsApp Integration
+* User reports
+* Moderation tools
+* Rate limiting
+* Conversation history
+* Web dashboard
+* Metrics & monitoring
+
+---
+
+# Architecture
+
+```text
+                +----------------+
+                | Telegram Bot   |
+                +-------+--------+
+                        |
+                +-------v--------+
+                | Bale Bot       |
+                +-------+--------+
+                        |
+                +-------v--------+
+                | Future Bots    |
+                +-------+--------+
+                        |
+              +---------v----------+
+              | Laravel API        |
+              |--------------------|
+              | Authentication     |
+              | Matching           |
+              | Message Routing    |
+              | Services           |
+              +---------+----------+
+                        |
+          +-------------+-------------+
+          |                           |
+ +--------v--------+         +--------v--------+
+ | PostgreSQL      |         | Redis           |
+ | Persistent Data |         | Queue / Cache   |
+ +-----------------+         +-----------------+
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+# Technology Stack
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Category         | Technology               |
+| ---------------- | ------------------------ |
+| Language         | PHP 8.4                  |
+| Framework        | Laravel 13               |
+| Database         | PostgreSQL               |
+| Cache            | Redis                    |
+| Containerization | Docker                   |
+| Web Server       | Nginx                    |
+| Queue            | Redis Queue              |
+| Version Control  | Git                      |
+| CI/CD            | GitHub Actions           |
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Project Structure
 
-## Security Vulnerabilities
+```text
+app/
+ ├── Services/
+ ├── Models/
+ ├── Actions/
+ ├── Jobs/
+ ├── Events/
+ ├── Listeners/
+ ├── Http/
+ └── Providers/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+docker/
 
-## License
+database/
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+routes/
+
+tests/
+```
+
+---
+
+# Getting Started
+
+## Clone
+
+```bash
+git clone https://github.com/hirezadehghani/multiplatform-anonymous-chatbot.git
+
+cd multiplatform-anonymous-chatbot
+```
+
+## Environment
+
+```bash
+cp .env.example .env
+```
+
+Configure:
+
+* Database
+* Redis
+* Bot Tokens
+
+---
+
+## Run with Docker
+
+```bash
+docker compose up -d --build
+```
+
+Install dependencies
+
+```bash
+docker compose exec app composer install
+```
+
+Generate application key
+
+```bash
+docker compose exec app php artisan key:generate
+```
+
+Run migrations
+
+```bash
+docker compose exec app php artisan migrate
+```
+
+Start queue worker
+
+```bash
+docker compose exec app php artisan queue:work
+```
+
+---
+
+# Running Tests
+
+```bash
+php artisan test
+```
+
+or
+
+```bash
+vendor/bin/pest
+```
+
+---
+
+# Screenshots
+
+## Application
+
+> Replace these placeholders with actual screenshots.
+
+```
+docs/images/dashboard.png
+
+docs/images/chat.png
+
+docs/images/docker.png
+
+docs/images/tests.png
+```
+
+Example structure:
+
+```text
+docs/
+└── images/
+    ├── dashboard.png
+    ├── architecture.png
+    ├── docker.png
+    ├── tests.png
+```
+
+---
+
+# Roadmap
+
+* [x] Docker environment
+* [x] PostgreSQL support
+* [x] Redis integration
+* [x] Queue system
+* [ ] Telegram integration
+* [ ] Bale integration
+* [ ] Discord integration
+* [ ] Authentication improvements
+* [ ] CI/CD
+* [ ] Monitoring
+* [ ] Production deployment
+
+---
+
+# Why Recruiters May Find This Project Interesting
+
+This repository demonstrates practical experience with:
+
+* Backend architecture
+* Laravel ecosystem
+* Containerized development
+* Database design
+* Redis queues
+* Clean project organization
+* API development
+* AI-assisted software engineering
+* Problem solving and debugging
+* Continuous learning through real-world implementation
+
+---
+
+# Contributing
+
+Contributions, suggestions, and bug reports are welcome.
+
+Please open an Issue before submitting large changes.
+
+---
+
+# License
+
+This project is licensed under the MIT License.
+
+---
+
+## Author
+
+**Reza Dehghani**
+
+Backend Developer • Laravel • PHP
+
+GitHub:
+https://github.com/hirezadehghani
+
+LinkedIn:
+https://linkedin.com/in/hirezadehghani
+
+Website:
+https://hireza.ir
