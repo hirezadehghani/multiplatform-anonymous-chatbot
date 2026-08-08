@@ -293,10 +293,7 @@ This project is licensed under the MIT License.
 Backend Developer • Laravel • PHP
 
 GitHub:
-https://github.com/hirezadehghani
+https://github.com/hirezadev
 
 LinkedIn:
-https://linkedin.com/in/hirezadehghani
-
-Website:
-https://hireza.ir
+https://linkedin.com/in/hirezadev
